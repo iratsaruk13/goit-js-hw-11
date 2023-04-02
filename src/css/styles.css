@@ -8,28 +8,52 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
-  color: #212121;
+  background-image: linear-gradient(rgba(104, 183, 239, 0.4), rgba(227, 250, 47, 0.4));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   line-height: 1.5;
 }
 
-#search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 0 auto;
+}
+@media screen and (min-width: 480px) {
+  .container {
+    max-width: 480px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 input {
   background-color: yellow;
   border: 3px solid#188ce8;
-  border-radius: 4px;
-  width: 300px;
-  height: 55px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  min-width: 500px;
+  min-height: 50px;
   padding-left: 16px;
   color: #188ce8;
-  font-size: 36px;
+  font-size: 20px;
 }
 
 input:focus {
@@ -38,18 +62,29 @@ input:focus {
   background-color: #188ce8;
 }
 
-.country-title {
+.btn-search {
+  min-width: 150px;
+  min-height: 50px;
+  background-color: #188ce8;
   font-weight: 700;
-  font-size: 36px;
-}
-
-.country-list-item {
-  display: flex;
+  font-size: 20px;
+  line-height: 1.88;
   align-items: center;
-  gap: 10px;
+  text-align: center;
+  letter-spacing: 0.06em;
+  color: yellow;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  justify-content: center;
 }
-
-.text-list {
-  font-weight: 700;
-  font-size: 18px;
+.btn-search:hover,
+.btn-search:focus {
+  background-color: yellow;
+  color: #188ce8;
+}
+.btn-search:disabled {
+  background-color: darkgrey;
+  color: white;
+  cursor: no-drop;
 }
