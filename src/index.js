@@ -4,6 +4,7 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import fetchPictures from './fetchImages';
+import createGalleryMarkup from './createGalleryMarkup';
 
 const searchForm = document.querySelector('#search-form')
 const gallery = document.querySelector('.gallery');
@@ -35,6 +36,7 @@ function onSearchQuery(evt) {
   if(!searchQuery) {
     return;
   };
+  fetchPictures(searchQuery)
   evt.target.reset();
 };
 
@@ -44,7 +46,7 @@ function clearMarkup() {
 
 
 
-function createGalleryMarkup(items) {
+function createGallery(items) {
 page +=1;
 totalHits = items.data.totalHits;
 
@@ -52,62 +54,7 @@ if (items.data.hits.length === 0) {
   Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
 };
 
-// const createdGalleryItem = items.data.hits.map(({ comments,
-//   downloads,
-//   largeImageURL,
-//   webformatURL,
-//   views,
-//   tags,
-//   likes }) => {
-//   return `
-//   <a class="gallery-link href="${largeImageURL}"
-//   <div class="photo-card">
-//   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-//   <div class="info">
-//     <p class="info-item">
-//       <b>Likes ${likes}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Views ${views}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Comments ${comments}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Downloads ${downloads}</b>
-//     </p>
-//   </div>
-// </div>
-// </a>`;
-// })
-// .join('');
-
-const createdGalleryItem = pictures.data.hits.map(el => {
-  const createdElement = `
-  <a class="gallery-link href="${el.largeImageURL}"
-//   <div class="photo-card">
-//   <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" />
-//   <div class="info">
-//     <p class="info-item">
-//       <b>Likes ${el.likes}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Views ${el.views}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Comments ${el.comments}</b>
-//     </p>
-//     <p class="info-item">
-//       <b>Downloads ${el.downloads}</b>
-//     </p>
-//   </div>
-// </div>
-// </a>
-  `;
-  return createdElement;
-}).join('');
-
-gallery.insertAdjacentHTML('afterbegin', createdGalleryItem);
+gallery.insertAdjacentHTML('afterbegin', createGalleryMarkup);
 
 buttonLoadMore.classList.remove('is-hidden');
 
@@ -154,7 +101,7 @@ async function fetchPictures(searchQuery) {
           },
       });
       
-      createGalleryMarkup(response);
+      createGallery(response);
   
   } catch (error) {
   onFetchError(error);
